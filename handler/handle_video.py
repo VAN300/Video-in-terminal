@@ -1,47 +1,45 @@
 #encoding" utf-8
+import os
 import sys
-import time
-from pprint import pprint
 from PIL import Image
 
+SYMS = ' \'.,:^";*!²¤/r(?+¿cLª7t1fJCÝy¢zF3±$S2kñ5AZXG$À0Ãm&Q8%RÔßÊNBåMÆØ@'
+SCAL_W, SCAL_H =(6, 11)
 
 
-def handle_video(path: str):
+class ASCII_Image:
 
-
-    with Image.open(path, 'r') as image, open('/home/van/Рабочий стол/Текстовый файл.txt', 'w') as out:
-        image = image.convert('L')
-        width, height = image.size
-
-        image = image.resize((int(width // 9), height // 21))
-        width, _ = image.size
-
-        pixels = list(image.getdata())
+    def __init__(self, file, out=sys.stdout):
+        self.image = file
+        self.out = out
+        self.pixels: list = []
         
-        for e, i in enumerate(pixels):
+        self.width: int = file.size[0] // SCAL_W
+        self.height: int = file.size[1] // SCAL_H
+        
 
-            if e % (width) == 0:
-                sys.stdout.write('\n\t')
-            
-            if 0 < i < 64:
-                sys.stdout.write('.')
-                i
-            elif 64 < i < 128:
-                sys.stdout.write(';')
+    def prepare(self):
+        self.image = self.image.convert('L')
 
-            elif 128 < i < 196:
-                sys.stdout.write('|')
+        self.image = self.image.resize((self.width, self.height))
 
-            elif 196 < i < 256:
-                sys.stdout.write('#')
+        self.pixels = list(self.image.getdata())
 
-            else:
-                sys.stdout.write(' ')
-            time.sleep(0.00001)
-            
-        time.sleep(8)
+    def render_image(self):
+        os.system('clear')
+
+        for e, i in enumerate(self.pixels):
+            self.render_pixel(e, i)
+
+    
+    def render_pixel(self, e: int, i: int):
+        if e % self.width == 0:
+            self.out.write('\n')
+
+        light = SYMS[i // 4]
+        self.out.write(light)
 
 
-
-handle_video('/home/van/Изображения/screen/Screenshot_20230101_112822.png')
-
+image = ASCII_Image(Image.open('/home/van/Изображения/bad_apple.png', 'r'))
+image.prepare()
+image.render_image()
