@@ -1,0 +1,3 @@
+from .Strategy import Strategy
+from .ConcreteStrategyBaseRender import ConcreteStrategyBaseRender as CStrategy1
+from .ConcreteStrategyCommunism import ConcreteStrategyCommunism as CStrategy2
