@@ -14,7 +14,7 @@ class ASCIIImage(object):
         
         self._image = resize(
                 gimage,
-                (self.max_width, self.max_height),
+                (self.max_width - 3, self.max_height - 1),
                 interpolation=INTER_AREA
         )
 

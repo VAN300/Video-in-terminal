@@ -14,7 +14,7 @@ def render_video(path: str):
     while processing:
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         yield gray_image
-
+            
         processing, image = video_cap.read()
 
 
@@ -33,8 +33,7 @@ class Manager(object):
         for gray_image in render_video(path):
             aimage = ASCIIImage(gray_image)
             self.strategy.execute(aimage)
-        else:
-            exit()
 
 
 MANAGER = Manager()
+
