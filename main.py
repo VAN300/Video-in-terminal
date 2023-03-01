@@ -8,7 +8,7 @@ from handler import MANAGER
 from strategies import *
 
 
-def main(path: str = '/home/van/Видео/Gachi_apple.webm'):
+def main(path: str = '/home/van/Видео/bad_apple.webm'):
     strategy = CStrategy1()
     MANAGER.setStrategy(strategy)
     MANAGER.executeStrategy(path)
